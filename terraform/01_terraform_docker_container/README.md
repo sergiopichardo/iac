@@ -16,6 +16,7 @@ Verify nginx instance
 ```
 docker ps
 ```
+> visit localhost:8000 to see the "Welcome to nginx!" message
 
 Destroy resources
 ```
