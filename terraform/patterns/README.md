@@ -1,4 +1,6 @@
-# AWS Serverless Services 
+# Terraform Notes
+
+## AWS Serverless Services 
 - IAM: Manages user access and encryption keys.
 - Lambda: Runs code in response to events without managing servers.
 - API Gateway: Creates, publishes, and secures APIs.
