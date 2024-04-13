@@ -8,7 +8,7 @@ resource "aws_vpc" "dev_vpc" {
   }
 }
 
-resource "aws_subnet" "public_subnet" {
+resource "aws_subnet" "dev_public_subnet" {
   vpc_id                  = aws_vpc.dev_vpc.id
   cidr_block              = "10.123.1.0/24"
   map_public_ip_on_launch = true # instances launch into the subnet 
@@ -39,4 +39,9 @@ resource "aws_route" "default_route" {
   route_table_id            = aws_route_table.public_dev_rt.id
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.dev_igw.id 
+}
+
+resource "aws_route_table_association" "dev_public_rt_association" {
+  subnet_id      = aws_subnet.dev_public_subnet.id
+  route_table_id = aws_route_table.public_dev_rt.id
 }
