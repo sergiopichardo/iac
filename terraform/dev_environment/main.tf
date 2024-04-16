@@ -1,8 +1,8 @@
 resource "aws_vpc" "dev_vpc" {
-  cidr_block           = "10.123.0.0/16"
+  cidr_block                       = "10.123.0.0/16"
   assign_generated_ipv6_cidr_block = true
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_hostnames             = true
+  enable_dns_support               = true
 
 
   tags = {
@@ -86,4 +86,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv6" {
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
 
-
+resource "aws_key_pair" "devenv_auth" {
+  key_name   = "devenv_key"
+  public_key = file("~/.ssh/devenv_key.pub")
+}
