@@ -13,6 +13,16 @@ resource "aws_vpc" "dev_vpc" {
 }
 ```
 
+### Generate and RSA ed25519 cryptographic key
+```sh
+ssh-keygen -t ed25519
+
+# steps 
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/Users/sergio/.ssh/id_ed25519): /Users/sergio/.ssh/devenv_key
+```
+
+
 ## Resources
 - [AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 - [Shared Credentials Files](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#shared_credentials_files)
