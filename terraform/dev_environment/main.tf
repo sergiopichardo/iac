@@ -58,6 +58,13 @@ resource "aws_security_group" "http_security_group" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh_access" {
+  security_group_id = aws_security_group.http_security_group.id
+  cidr_ipv4         = "0.0.0.0/0"   # add your own IP address for more security
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
 resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4" {
   security_group_id = aws_security_group.http_security_group.id
   cidr_ipv4         = aws_vpc.dev_vpc.cidr_block
@@ -97,7 +104,7 @@ resource "aws_instance" "dev_server" {
   key_name = aws_key_pair.devenv_auth.id
   subnet_id = aws_subnet.dev_public_subnet.id
   vpc_security_group_ids = [aws_security_group.http_security_group.id]
-  user_data = file("userdata.tpl")
+  user_data = file("${path.module}/userdata.tpl")
 
   root_block_device {
     volume_size = 10
