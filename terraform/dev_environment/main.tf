@@ -115,7 +115,7 @@ resource "aws_instance" "dev_server" {
   }
 
   provisioner "local-exec" {
-    command = templatefile("linux-ssh-config.tpl", {
+    command = templatefile("${var.host_os}-ssh-config.tpl", {
       # this are all the variables we need to pass to the `linux-ssh-config.tpl` template file
       hostname = self.public_ip # the public ip assign to this ec2 instance
       user = "ubuntu",
@@ -123,7 +123,7 @@ resource "aws_instance" "dev_server" {
     })
     # what interpreter the script needs to use to be executed
     # interpreter = [ "Powershell", ".Command" ]
-    interpreter = [ "bash", "-c" ]
+    interpreter = var.host_os == "windows" ? ["Powerful", "-Command"] : [ "bash", "-c" ]
   }
 
 
