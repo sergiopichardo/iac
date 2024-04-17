@@ -90,3 +90,21 @@ resource "aws_key_pair" "devenv_auth" {
   key_name   = "devenv_key"
   public_key = file("~/.ssh/devenv_key.pub")
 }
+
+resource "aws_instance" "dev_server" {
+  ami           = data.aws_ami.server_ami.id
+  instance_type = "t2.micro"
+  key_name = aws_key_pair.devenv_auth.id
+  subnet_id = aws_subnet.dev_public_subnet.id
+  vpc_security_group_ids = [aws_security_group.http_security_group.id]
+  user_data = file("userdata.tpl")
+
+  root_block_device {
+    volume_size = 10
+  }
+
+  tags = {
+    Name = "dev-server"
+  }
+}
+
