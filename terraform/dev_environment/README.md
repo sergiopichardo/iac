@@ -29,5 +29,8 @@ Enter file in which to save the key (/Users/sergio/.ssh/id_ed25519): /Users/serg
 - [AWS Route](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) - stand alone routes for an AWS Route Table
 - [aws_ami data source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami)
 - [aws_key_pair resources](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair)
+- [input variables](https://developer.hashicorp.com/terraform/language/values/variables)
+- [variable definition precedence](https://developer.hashicorp.com/terraform/language/values/variables#variable-definition-precedence)
+
 
 
