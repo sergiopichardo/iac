@@ -60,7 +60,7 @@ resource "aws_security_group" "http_security_group" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_access" {
   security_group_id = aws_security_group.http_security_group.id
-  cidr_ipv4         = "0.0.0.0/0"   # add your own IP address for more security
+  cidr_ipv4         = "0.0.0.0/0" # add your own IP address for more security
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
@@ -99,12 +99,12 @@ resource "aws_key_pair" "devenv_auth" {
 }
 
 resource "aws_instance" "dev_server" {
-  ami           = data.aws_ami.server_ami.id
-  instance_type = "t2.micro"
-  key_name = aws_key_pair.devenv_auth.id
-  subnet_id = aws_subnet.dev_public_subnet.id
+  ami                    = data.aws_ami.server_ami.id
+  instance_type          = "t2.micro"
+  key_name               = aws_key_pair.devenv_auth.id
+  subnet_id              = aws_subnet.dev_public_subnet.id
   vpc_security_group_ids = [aws_security_group.http_security_group.id]
-  user_data = file("${path.module}/userdata.tpl")
+  user_data              = file("${path.module}/userdata.tpl")
 
   root_block_device {
     volume_size = 10
@@ -117,15 +117,12 @@ resource "aws_instance" "dev_server" {
   provisioner "local-exec" {
     command = templatefile("${var.host_os}-ssh-config.tpl", {
       # this are all the variables we need to pass to the `linux-ssh-config.tpl` template file
-      hostname = self.public_ip # the public ip assign to this ec2 instance
-      user = "ubuntu",
-      identityfile = "~/.ssh/devenv_key"  # the private key 
+      hostname     = self.public_ip # the public ip assign to this ec2 instance
+      user         = "ubuntu",
+      identityfile = "~/.ssh/devenv_key" # the private key 
     })
     # what interpreter the script needs to use to be executed
     # interpreter = [ "Powershell", ".Command" ]
-    interpreter = var.host_os == "windows" ? ["Powerful", "-Command"] : [ "bash", "-c" ]
+    interpreter = var.host_os == "windows" ? ["Powerful", "-Command"] : ["bash", "-c"]
   }
-
-
 }
-

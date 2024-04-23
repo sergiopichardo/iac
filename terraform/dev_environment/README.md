@@ -31,6 +31,6 @@ Enter file in which to save the key (/Users/sergio/.ssh/id_ed25519): /Users/serg
 - [aws_key_pair resources](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair)
 - [input variables](https://developer.hashicorp.com/terraform/language/values/variables)
 - [variable definition precedence](https://developer.hashicorp.com/terraform/language/values/variables#variable-definition-precedence)
-
+- [terraform outputs](https://developer.hashicorp.com/terraform/language/values/outputs)
 
 
