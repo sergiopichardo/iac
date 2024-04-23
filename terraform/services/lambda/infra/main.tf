@@ -1,5 +1,3 @@
-
-
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
@@ -18,21 +16,12 @@ resource "aws_iam_role" "iam_for_lambda" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-data "archive_file" "lambda_function_code" {
-    type = "zip"
-    source_file = "${path.module}/../src/lambda.py"
-    output_path = "lambda_function_src.zip"
-}
-
 resource "aws_lambda_function" "test_lambda" {
-  filename      = "lambda_function_src.zip"
-  function_name = "test_lambda"
+  filename      = "lambda_function_payload.zip"
+  function_name = "hello_world"
   role          = aws_iam_role.iam_for_lambda.arn
-
-  runtime       = "python3.10"
   handler       = "index.test"
-
-  source_code_hash = data.archive_file.lambda_function_code.output_base64sha256
+  runtime       = "nodejs18.x"
 
   ephemeral_storage {
     size = 10240 # Min 512 MB and the Max 10240 MB
