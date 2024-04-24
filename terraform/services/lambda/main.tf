@@ -19,9 +19,9 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 
 data "archive_file" "lambda_function_code" {
-    type = "zip"
-    source_file = "${path.module}/../src/lambda.py"
-    output_path = "lambda_function_src.zip"
+  type = "zip"
+  source_file = "${path.module}/../src/lambda.py"
+  output_path = "lambda_function_src.zip"
 }
 
 resource "aws_lambda_function" "test_lambda" {
