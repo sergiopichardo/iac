@@ -81,3 +81,23 @@ resource "aws_lambda_function" "python_terraform_lambda" {
   ]
 }
 
+resource "random_string" "random" {
+    length = 8
+    special = false # set to false to avoid special chars in the s3 name
+    upper = false # set to false to keep the name lowercase, which is a common practice 
+    lower = true 
+    numeric = true 
+}
+
+variable "images_s3_bucket_name" {
+    default = "images-s3-bucket"
+}
+
+resource "aws_s3_bucket" "images_s3_bucket" {
+  bucket = "${var.images_s3_bucket_name}-${random_string.random.result}"
+
+  tags = {
+    Name   = "${var.images_s3_bucket_name}-${random_string.random.result}"
+    Environment = "Dev"
+  }
+}
