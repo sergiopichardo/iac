@@ -40,6 +40,18 @@ data "aws_iam_policy_document" "lambda_logging" {
   }
 }
 
+data "aws_iam_policy_document" "lambda_access_to_s3" {
+    statement {
+      effect = "Allow" 
+
+      actions = [
+        "s3:GetObject"
+      ]
+
+      resources = ["${aws_s3_bucket.images_s3_bucket.arn}/*"]
+    }
+}
+
 resource "aws_iam_policy" "lambda_logging" {
   name        = "lambda_logging"
   path        = "/"
