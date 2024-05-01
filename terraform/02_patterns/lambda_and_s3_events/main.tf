@@ -102,6 +102,8 @@ resource "random_string" "random" {
 resource "aws_s3_bucket" "images_s3_bucket" {
   bucket = "${var.images_s3_bucket_name}-${random_string.random.result}"
 
+  force_destroy = true
+
   tags = {
     Name        = "${var.images_s3_bucket_name}-${random_string.random.result}"
     Environment = "Dev"
